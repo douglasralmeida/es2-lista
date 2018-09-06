@@ -1,0 +1,7 @@
+{
+  "name": "Filme vencedor do Oscar",
+  "description": "Filme vencedor do Oscar para Heroku",
+  "image": "heroku/python",
+  "repository": "https://github.com/",
+  "keywords": ["python", "academy-awards"]
+}
