@@ -18,7 +18,7 @@ def melhorfilme(ano):
   valor = cur.fetchone()
   cur.close()
 
-  return valor
+  return valor[0]
 
 @app.route('/')
 def home():
