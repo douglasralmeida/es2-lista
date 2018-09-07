@@ -13,8 +13,6 @@ def melhorfilme(ano):
     with conn.cursor() as cur:
       cur.execute(SQL_FILME, [ano])
       cur.close
-  cur = conn.cursor()
-  cur.execute(SQL_FILME, ano)
   valor = cur.fetchone()
   cur.close()
 
