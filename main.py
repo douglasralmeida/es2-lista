@@ -11,7 +11,7 @@ conn = psql.connect(DB_URL, sslmode='require')
 def melhorfilme(ano):
   with conn:
     with conn.cursor() as cur:
-      cur.execute(SQL_FILME, ano)
+      cur.execute(SQL_FILME, [ano])
       cur.close
   cur = conn.cursor()
   cur.execute(SQL_FILME, ano)
