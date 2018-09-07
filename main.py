@@ -1,21 +1,34 @@
 from flask import Flask
-import pandas as pd
+import os
+import psycopg2 as psql
+
+DB_URL = os.environ['DATABASE_URL']
+SQL_FILME = 'SELECT nome FROM oscar.filmes WHERE ano = %d;'
 
 app = Flask(__name__)
-data = pd.read_csv("data.csv").values
+conn = psql.connect(DB_URL, sslmode='require')
 
 def melhorfilme(ano):
-  return data[ano-1929][1]
+  with conn:
+    with conn.cursor() as cur:
+      cur.execute(SQL_FILME, ano)
+      cur.close
+  cur = conn.cursor()
+  cur.execute(SQL_FILME, ano)
+  valor = cur.fetchone()
+  cur.close()
+
+  return valor
 
 @app.route('/')
 def home():
   return 'Filme vencedor do Oscar por ano. Use https://url/oscar/ano'
 
-@app.route("/oscar/")
+@app.route("/filme/")
 def semano():
   return "Erro na URL. Você deve passar um ano no parâmetro."
 
-@app.route("/oscar/<valor>")
+@app.route("/filme/<valor>")
 def oscar(valor):
   if not valor.isdigit():
     return "Erro na URL. O parâmetro passado deve ser um número inteiro positivo."
