@@ -3,7 +3,7 @@ import os
 import psycopg2 as psql
 
 DB_URL = os.environ['DATABASE_URL']
-SQL_FILME = 'SELECT nome FROM oscar.filmes WHERE ano = %d;'
+SQL_FILME = 'SELECT nome FROM oscar.filmes WHERE ano = %s;'
 
 app = Flask(__name__)
 conn = psql.connect(DB_URL, sslmode='require')
